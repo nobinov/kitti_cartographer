@@ -42,7 +42,8 @@ options = {
   landmarks_sampling_ratio = 1.,
 }
 
-TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 2
+TRAJECTORY_BUILDER_3D.num_accumulated_range_data = 1 -- TODO
+TRAJECTORY_BUILDER_3D.use_online_correlative_scan_matching = true
 
 MAP_BUILDER.use_trajectory_builder_3d = true
 MAP_BUILDER.num_background_threads = 7
@@ -55,5 +56,13 @@ POSE_GRAPH.optimization_problem.ceres_solver_options.max_num_iterations = 10
 POSE_GRAPH.constraint_builder.min_score = 0.20 -- 0.62
 POSE_GRAPH.constraint_builder.global_localization_min_score = 0.66
 
+-- translation and rotation
+TRAJECTORY_BUILDER_3D.ceres_scan_matcher.translation_weight = 0.5 -- new | 5.
+TRAJECTORY_BUILDER_3D.ceres_scan_matcher.rotation_weight = 0.5 -- new | 4e2
+
+-- set motion filter values to 0
+TRAJECTORY_BUILDER_3D.motion_filter.max_time_seconds = 0
+TRAJECTORY_BUILDER_3D.motion_filter.max_distance_meters = 0
+TRAJECTORY_BUILDER_3D.motion_filter.max_angle_radians = 0
 
 return options
